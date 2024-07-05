@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" href="style.css">
+  <title>Countries</title>
+</head>
+<body>
+
+  <main>
+    <nav>
+        <h1>Where in the world?</h1>
+        <div class="theme-toggle-area">
+            <i class="fa-solid fa-moon"></i>
+            <p class="mode-text">Dark Mode</p>
+        </div>
+    </nav>
+
+    <div class="input-section">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search for a country..." id="search" class="search-input placeholder-light">
+    </div>
+
+    <section class="flags-section"></section>
+
+    <section class="flag-detail-section">
+        <div class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <p>Back</p>
+        </div>
+
+        <div class="details">
+            <img src="" alt="" class="flag-detail-img">
+            <div class="flag-detail-text-section">
+                <h1 class="detail-name"></h1>
+
+                <div class="list-section">
+                    <div class="list list1">
+                        <p class="detail-native-line detail-line">Native Name: <span class="detail-native data"></span></p>
+                        <p class="detail-population-line detail-line">Population: <span class="detail-population data"></span></p>
+                        <p class="detail-region-line detail-line">Region: <span class="detail-region data"></span></p>
+                        <p class="detail-subregion-line detail-line">Sub Region: <span class="detail-subregion data"></span></p>
+                        <p class="detail-capital-line detail-line">Capital: <span class="detail-capital data"></span></p>
+                    </div>
+
+                    <div class="list list2">
+                        <p class="detail-topLevelDomain-line detail-line">Top Level Domain: <span class="detail-topLevelDomain data"></span></p>
+                        <p class="detail-populcurrenciesation-line detail-line">Currencies: <span class="detail-currencies data"></span></p>
+                        <p class="detail-languages-line detail-line">Languages: <span class="detail-languages data"></span></p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="https://kit.fontawesome.com/189bc17b67.js" crossorigin="anonymous"></script>
+</body>
+</html>
