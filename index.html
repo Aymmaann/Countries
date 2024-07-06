@@ -12,14 +12,32 @@
     <nav>
         <h1>Where in the world?</h1>
         <div class="theme-toggle-area">
-            <i class="fa-solid fa-moon"></i>
+            <i class="fa-solid fa-moon" id="toggle-icon"></i>
             <p class="mode-text">Dark Mode</p>
         </div>
     </nav>
 
-    <div class="input-section">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Search for a country..." id="search" class="search-input placeholder-light">
+    <div class="input-area">
+        <div class="input-section">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search for a country..." id="search" class="search-input placeholder-light">
+        </div>
+
+        <div class="filter-section">
+            <p>Filter by Region</p>
+            <i class="fa-solid fa-angle-down"></i>
+        </div>
+
+        <div class="filter-options">
+            <ul class="filter-list">
+                <li class="list-item">Africa</li>
+                <li class="list-item">Americas</li>
+                <li class="list-item">Asia</li>
+                <li class="list-item">Europe</li>
+                <li class="list-item">Oceania</li>
+            </ul>
+        </div>
+
     </div>
 
     <section class="flags-section"></section>
