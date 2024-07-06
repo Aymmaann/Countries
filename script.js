@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.querySelector(".theme-toggle-area")
+    const toggleIcon = document.querySelector("#toggle-icon")
     const modeText = document.querySelector(".mode-text")
     const main = document.querySelector("main")
     const nav = document.querySelector("nav")
@@ -7,21 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const backBtn = document.querySelector(".back-btn")
     const flagDetailSection = document.querySelector(".flag-detail-section")
     const searchSection = document.querySelector(".input-section")
-    let toggleCount = 0
+    const filterSection = document.querySelector(".filter-section")
+    const filterOptions = document.querySelector(".filter-options")
+    const listItems = document.querySelectorAll(".list-item")
     const search = document.querySelector("#search")
-
-
-    toggle.addEventListener("click", () => {
-        toggleCount++
-        toggleTheme(toggleCount)
-    })
-
-
-    backBtn.addEventListener("click", () => {
-        flagsSection.style.display = "flex"
-        searchSection.style.display = "block"
-        flagDetailSection.style.display = "none" 
-    })
+    let toggleCount = 0
+    let filterCount = 0
 
 
     fetch('data.json')
@@ -37,8 +29,59 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             displayCountryDetails(countries)
             searchCountries(countries)
+            filterSearch(countries)
         })
         .catch(error => {console.error("Error: ", error)})
+
+
+    toggle.addEventListener("click", () => {
+        toggleCount++
+        toggleTheme(toggleCount)
+    })
+
+
+    backBtn.addEventListener("click", () => {
+        flagsSection.style.display = "flex"
+        searchSection.style.display = "block"
+        filterSection.style.display = "flex"
+        flagDetailSection.style.display = "none" 
+    })
+
+
+    filterSection.addEventListener("click", () => {
+        filterCount++
+        if(filterCount % 2 != 0) {
+            filterSection.innerHTML =  `<p>Filter by Region</p>
+                                        <i class="fa-solid fa-angle-up"></i>`
+            filterOptions.style.display = "block"
+        }
+        else {
+            filterSection.innerHTML =  `<p>Filter by Region</p>
+                                        <i class="fa-solid fa-angle-down"></i>`
+            filterOptions.style.display = "none"
+        }
+    })
+    
+
+    function filterSearch(countries) {
+        const flagSections = document.querySelectorAll(".flag-section")
+        listItems.forEach(listItem => {
+            listItem.addEventListener("click", () => {
+                const searchRegion = listItem.textContent.trim().toLowerCase()
+                flagSections.forEach(flagSection => {
+                    const countryName = flagSection.querySelector(".name").textContent.toLowerCase()
+                    const country = countries.find(country => country.name.toLowerCase() === countryName)
+
+                    if(country.region.toLowerCase() === searchRegion) {
+                        flagSection.style.display = "block"
+                    }
+                    else {
+                        flagSection.style.display = "none"
+                    }
+                })
+            })
+        })
+    }
 
 
     function searchCountries(countries) {
@@ -46,11 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
         search.addEventListener("input", () => {
             const searchTerm = search.value.trim().toLowerCase()
             countries.forEach(country => {
-                // flagSections.forEach(flagSection => {
-                //     if(country.name.includes(search.value)) {
-                //         flagSection.style.display = "none"
-                //     }
-                // })
                 flagSections.forEach(flagSection => {
                     const countryName = flagSection.querySelector(".name").textContent.toLowerCase()
                     if(countryName.includes(searchTerm)) {
@@ -70,7 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Light Mode
         if(toggleCount % 2 == 0) {
-            modeText.textContent = "Dark Mode"
+            toggle.innerHTML = `<i class="fa-solid fa-moon" id="toggle-icon"></i>
+                                <p class="mode-text">Dark Mode</p>`
             main.style.backgroundColor = "var(--very-light-gray-light-mode-background)"
             main.style.color = "var(--very-dark-blue-light-mode-text)"
             nav.style.backgroundColor = "var(--white-dark-mode-text-light-mode-elements)"
@@ -85,11 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
             search.style.color = "var(--very-dark-blue-light-mode-text)"
             search.classList.remove("placeholder-dark")
             search.classList.add("placeholder-light")
+            filterSection.style.backgroundColor = "var(--white-dark-mode-text-light-mode-elements)"
         }
 
         // Dark Mode
         else {
-            modeText.textContent = "Light Mode"
+            toggle.innerHTML = `<i class="fa-solid fa-sun" id="toggle-icon"></i>
+                                <p class="mode-text">Light Mode</p>`
             main.style.backgroundColor = "var(--very-dark-blue-dark-mode-background)"
             main.style.color = "var(--white-dark-mode-text-light-mode-elements)"
             nav.style.backgroundColor = "var(--dark-blue-dark-mode-elements)"
@@ -104,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             search.style.color = "var(--white-dark-mode-text-light-mode-elements)"
             search.classList.add("placeholder-dark")
             search.classList.remove("placeholder-light")
+            filterSection.style.backgroundColor = "var(--dark-blue-dark-mode-elements)"
         }
     }
 
@@ -149,9 +191,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const flagSections = document.querySelectorAll(".flag-section")
         flagSections.forEach(flagSection => {
             flagSection.addEventListener("click", () => {
-                // console.log(flagSection.querySelector(".name").textContent)
+                if(filterCount % 2 != 0) {
+                    filterCount = filterCount > 0? filterCount-- : 0
+                    filterOptions.style.display = "none"
+                    filterSection.innerHTML =  `<p>Filter by Region</p>
+                                        <i class="fa-solid fa-angle-down"></i>`
+                }
                 flagsSection.style.display = "none"
                 searchSection.style.display = "none"
+                filterSection.style.display = "none"
                 flagDetailSection.style.display = "block"
 
                 const countryName = flagSection.querySelector(".name").textContent
@@ -181,7 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setDetailPageList1(flagSection, country) {
         const native = document.querySelector(".detail-native")
-        native.textContent = country.nativeName
+        if(country.nativeName && country.nativeName.length > 0) {
+            native.textContent = country.nativeName
+        }
+        else {
+            native.textContent = "N/A"
+        }
 
         const population = document.querySelector(".detail-population")
         population.textContent = country.population
@@ -193,7 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
         subregion.textContent = country.subregion
 
         const capital = document.querySelector(".detail-capital")
-        capital.textContent = country.capital
+        if(country.capital && country.capital.length > 0) {
+            capital.textContent = country.capital
+        }
+        else {
+            capital.textContent = "No capital city"
+        }
     }
 
 
@@ -211,21 +269,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const currencies = document.querySelector(".detail-currencies")
         str = ""
         count = 0
-        country.currencies.forEach(currency => {
-            if(count > 0) { str += ", " }
-            str += currency.name
-            count++
-        })
+        if(country.currencies && country.currencies.length > 0) {
+            country.currencies.forEach(currency => {
+                if(count > 0) { str += ", " }
+                str += currency.name
+                count++
+            })
+        }
+        else {
+            str = "No Currency"
+        }
         currencies.textContent = str
 
         const languages = document.querySelector(".detail-languages")
         str = ""
         count = 0
-        country.languages.forEach(language => {
-            if(count > 0) { str += ", " }
-            str += language.name
-            count++
-        })
+        if(country.languages && country.languages.length > 0) {
+            country.languages.forEach(language => {
+                if(count > 0) { str += ", " }
+                str += language.name
+                count++
+            })
+        }
+        else {
+            str = "No official language"
+        }
         languages.textContent = str
     }
 })
