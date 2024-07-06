@@ -25,7 +25,7 @@ main {
     min-height: 100vh;
     background-color: var(--very-light-gray-light-mode-background);
     color: var(--very-dark-blue-light-mode-text);
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
 }
 
 nav {
@@ -69,7 +69,7 @@ nav h1 {
     border-radius: 8px;
     width: 264px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    transition: 0.2s ease-in-out;
+    transition: box-shadow 0.2s ease-in-out;
     cursor: pointer;
 }
 
@@ -174,7 +174,7 @@ nav h1 {
 .input-section {
     width: 480px;
     position: relative;
-    margin: 48px 80px;
+    margin: 48px 0px;
     color: var(--dark-gray-light-mode-input);
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
@@ -182,7 +182,6 @@ nav h1 {
 
 .input-section i {
     position: absolute;
-    /* color: var(--dark-gray-light-mode-input); */
     top: 19px;
     left: 32px;
 }
@@ -205,4 +204,59 @@ nav h1 {
 
 .placeholder-dark::placeholder {
     color: var(--white-dark-mode-text-light-mode-elements); 
+}
+
+.input-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 80px;
+    position: relative;
+} 
+
+.filter-section {
+    font-size: 15px;
+    width: 200px;
+    height: 56px;
+    background-color: var(--white-dark-mode-text-light-mode-elements);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    /* transition: 0.2s ease-in-out; */
+}
+
+.filter-options {
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 300;
+    display: none;
+    position: absolute;
+    top: 109px;
+    right: 80px;
+    width: 200px;
+    height: 164px;
+    padding: 18px 24px;
+    background-color: var(--white-dark-mode-text-light-mode-elements);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.filter-list {
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.filter-list li {
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.filter-list li:hover {
+    font-weight: 600;
 }
