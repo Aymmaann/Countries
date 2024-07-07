@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterOptions = document.querySelector(".filter-options")
     const listItems = document.querySelectorAll(".list-item")
     const search = document.querySelector("#search")
+    const borderCountriesSection = document.querySelector(".border-countries-section")
     let toggleCount = 0
     let filterCount = 0
 
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json()
         })
         .then(countries => {
+            window.countryData = countries;
             countries.forEach(country => {
                 createFlag(country)
             })
@@ -72,11 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     const countryName = flagSection.querySelector(".name").textContent.toLowerCase()
                     const country = countries.find(country => country.name.toLowerCase() === countryName)
 
-                    if(country.region.toLowerCase() === searchRegion) {
-                        flagSection.style.display = "block"
+                    if(searchRegion != "all") {
+                        if(country.region.toLowerCase() === searchRegion) {
+                            flagSection.style.display = "block"
+                        }
+                        else {
+                            flagSection.style.display = "none"
+                        }
                     }
                     else {
-                        flagSection.style.display = "none"
+                        flagSection.style.display = "block"
                     }
                 })
             })
@@ -105,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleTheme(toggleCount) {
         const flagSection = document.querySelectorAll(".flag-section")
+        console.log(toggleCount)
 
         // Light Mode
         if(toggleCount % 2 == 0) {
@@ -125,6 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
             search.classList.remove("placeholder-dark")
             search.classList.add("placeholder-light")
             filterSection.style.backgroundColor = "var(--white-dark-mode-text-light-mode-elements)"
+            filterOptions.style.backgroundColor = "var(--white-dark-mode-text-light-mode-elements)"
+            filterOptions.style.color = "var(--very-dark-blue-light-mode-text)"
+            const borderCountryDivs = document.querySelectorAll(".border-country")
+            borderCountryDivs.forEach(borderCountry => {
+                borderCountry.style.backgroundColor = "var(--white-dark-mode-text-light-mode-elements)"
+                borderCountry.style.color = "var(--very-dark-blue-light-mode-text)"
+            })
         }
 
         // Dark Mode
@@ -146,6 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
             search.classList.add("placeholder-dark")
             search.classList.remove("placeholder-light")
             filterSection.style.backgroundColor = "var(--dark-blue-dark-mode-elements)"
+            filterOptions.style.backgroundColor = "var(--dark-blue-dark-mode-elements)"
+            filterOptions.style.color = "var(--white-dark-mode-text-light-mode-elements)"
+            const borderCountryDivs = document.querySelectorAll(".border-country")
+            borderCountryDivs.forEach(borderCountry => {
+                borderCountry.style.backgroundColor = "var(--dark-blue-dark-mode-elements)"
+                borderCountry.style.color = "var(--white-dark-mode-text-light-mode-elements)"
+            })
         }
     }
 
@@ -204,14 +226,87 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const countryName = flagSection.querySelector(".name").textContent
                 const country = countries.find(country => country.name.toLowerCase() === countryName.toLowerCase())
+                let borderCodes = []
+                setBorderCountries(countries, countryName)
 
                 // Set details
                 setDetailPageImage(flagSection)
                 setDetailPageName(flagSection)
-                setDetailPageList1(flagSection, country)
-                setDetailPageList2(flagSection, country)
+                setDetailPageList1(country)
+                setDetailPageList2(country)
             })
         })
+    }
+
+
+    function setBorderCountries(countries, countryName) {
+        const borderCountries = countries.find(country => {
+            if(countryName.toLowerCase() === country.name.toLowerCase()) {
+                borderCodes = country.borders
+                borderCountriesSection.innerHTML = `<p class="border-text">Border Countries: </p>`
+
+                if(country.borders && borderCodes.length > 0) {
+                    borderCodes.forEach(borderCode => {
+                        const borderCountry = countries.find(country => country.alpha3Code === borderCode)
+                        createBorderCountryTag(borderCountry.name)
+                    })
+                }
+                else {
+                    borderCountriesSection.innerHTML = `<p class="border-text">Border Countries: </p>
+                                                <p class="border-country-name">No Bordering Countries</p>`
+                }
+            }
+        })
+
+        const borderCountryDivs = document.querySelectorAll(".border-country")
+        borderCountryDivs.forEach(borderCountry => {
+            borderCountry.addEventListener("click", () => {
+                const borderCountryName = borderCountry.querySelector(".border-country-name").textContent
+                const borderCountryNameJSON = countries.find(country => country.name.toLowerCase() === borderCountryName.toLowerCase())
+
+                updateDetailImage(borderCountryName, borderCountryNameJSON)
+                updateDetailPageName(borderCountryName)
+                setDetailPageList1(borderCountryNameJSON)
+                setDetailPageList2(borderCountryNameJSON)
+                setBorderCountries(countries, borderCountryName)
+            })
+        })
+    }
+
+
+    function updateDetailImage(borderCountryName, country) {
+        if (country) {
+            const flagDetailImg = flagDetailSection.querySelector(".flag-detail-img");
+            if (country.flags && country.flags.png) {
+                flagDetailImg.src = country.flags.png;
+            } else {
+                flagDetailImg.src = ""; 
+            }
+        } else {
+            console.error(`Country '${borderCountryName}' not found.`);
+        }
+    }
+
+    function updateDetailPageName(borderCountryName) {
+        const flagName = document.querySelector(".detail-name")
+        flagName.textContent = borderCountryName
+    }
+
+
+    function createBorderCountryTag(countryName) {
+        const borderCountry = document.createElement("div")
+        borderCountry.classList.add("border-country")
+
+        const para = document.createElement("p")
+        para.classList.add("border-country-name")
+        para.textContent = countryName
+        borderCountry.appendChild(para)
+
+        if(toggleCount % 2 === 0) {
+
+        }
+
+        borderCountriesSection.appendChild(borderCountry)
     }
 
 
@@ -227,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function setDetailPageList1(flagSection, country) {
+    function setDetailPageList1(country) {
         const native = document.querySelector(".detail-native")
         if(country.nativeName && country.nativeName.length > 0) {
             native.textContent = country.nativeName
@@ -255,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function setDetailPageList2(flagSection, country) {
+    function setDetailPageList2(country) {
         const topLevelDomain = document.querySelector(".detail-topLevelDomain")
         let str = ""
         let count = 0
