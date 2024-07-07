@@ -27,7 +27,7 @@ Users should be able to:
 - Click through to the border countries on the detail page
 - Toggle the color scheme between light and dark mode
 
-### Screenshot
+### Screenshots
 
 ![images](./images/screenshot1.jpg)
 ![images](./images/screenshot2.jpg)
