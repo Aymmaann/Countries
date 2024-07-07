@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleTheme(toggleCount) {
         const flagSection = document.querySelectorAll(".flag-section")
-        console.log(toggleCount)
 
         // Light Mode
         if(toggleCount % 2 == 0) {
