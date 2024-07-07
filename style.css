@@ -474,4 +474,7 @@ nav h1 {
     nav h1 {
         font-size: 18px;
     }
+    .flag-detail-section {
+        padding: 28px 28px 100px;
+    }
 }
