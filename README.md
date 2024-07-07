@@ -31,11 +31,12 @@ Users should be able to:
 
 ![images](./images/screenshot1.jpg)
 ![images](./images/screenshot2.jpg)
+![images](./images/screenshot3.jpg)
 
 ### Links
 
 - [GitHub Repo](https://github.com/Aymmaann/Countries/tree/main)
-- [Live Site]()
+- [Live Site](https://countries-fe.netlify.app)
 
 ## My process
 
