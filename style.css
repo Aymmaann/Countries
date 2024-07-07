@@ -61,7 +61,6 @@ nav h1 {
     flex-wrap: wrap;
     padding: 0 79px 48px;
     flex-wrap: wrap;
-    /* display: none; */
 }
 
 .flag-section {
@@ -111,7 +110,6 @@ nav h1 {
 }
 
 .flag-section:hover {
-    /* transform: translateY(-6px); */
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 
@@ -157,9 +155,8 @@ nav h1 {
 .list-section {
     margin-top: 22px;
     display: flex;
-    justify-content: space-between;
     align-content: center;
-    gap: 107px;
+    gap: 110px;
 }
 
 .detail-line {
@@ -226,7 +223,6 @@ nav h1 {
     align-items: center;
     padding: 20px;
     cursor: pointer;
-    /* transition: 0.2s ease-in-out; */
 }
 
 .filter-options {
@@ -238,7 +234,7 @@ nav h1 {
     top: 109px;
     right: 80px;
     width: 200px;
-    height: 164px;
+    height: 200px;
     padding: 18px 24px;
     background-color: var(--white-dark-mode-text-light-mode-elements);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
@@ -259,4 +255,223 @@ nav h1 {
 
 .filter-list li:hover {
     font-weight: 600;
+}
+
+.border-countries-section {
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.border-text {
+    font-weight: 600;
+}
+
+.border-country {
+    font-weight: 300;
+    font-size: 15px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    padding: 0 27px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.border-country:hover {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
+@media screen and (max-width: 1438px) {
+    .flags-section {
+        justify-content: center;
+        gap: 80px;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .list-section {
+        gap: 50px;
+    }
+    .details {
+        gap: 60px;
+    }
+    .flag-detail-section {
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .list-section {
+        flex-direction: column;
+        gap: 0;
+    }
+    .detail-name {
+        margin-top: 0;
+    }
+    nav {
+        padding: 10px 45px;
+    }
+    .input-area {
+        padding: 0 45px;
+    }
+    .flags-section {
+        padding: 0 45px 45px;
+        gap: 40px;
+    }
+    .flag-detail-section {
+        padding: 80px 45px;
+    }
+    .border-countries-section {
+        margin-top: 25px;
+    }
+    .filter-options {
+        right: 45px;
+    }
+}
+
+
+@media screen and (max-width: 962px) {
+    .details {
+        flex-direction: column;
+        margin-top: 50px;
+    }
+    .flag-detail-section {
+        padding: 48px 45px 100px;
+    }
+    .flag-detail-img {
+        margin: 0 auto; 
+    }
+    .flag-detail-text-section {
+        text-align: center;
+        padding: 0 50px;
+    }
+
+    .list-section {
+        flex-direction: row;
+        gap: 60px;
+        justify-content: center;
+    }
+    .border-countries-section {
+        margin-top: 60px;
+        justify-content: center;
+    }
+    .search-input, .input-section {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 961px) {
+    .flags-section {
+        gap: 80px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .filter-section {
+        width: 170px;
+    }
+    .flags-section {
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .flag-detail-img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 647px) {
+    .input-area {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .input-section {
+        margin: 40px 0;
+    }
+    .filter-section {
+        margin-bottom: 64px;
+        width: 200px;
+    }
+    .filter-options {
+        top: 196px;
+        left: 45px;
+    }
+    .flag-detail-text-section {
+        padding: 0;
+    }
+    .flag-section {
+        width: 90%;
+    }
+    .flag-img {
+        width: 100%;
+        height: 250px;
+    }
+    .input-section, .search-input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .flag-section {
+        width: 100%;
+    }
+    .flag-img {
+        width: 100%;
+        height: 250px;
+    }
+    nav {
+        padding: 10px 28px;
+    }
+    nav h1 {
+        font-size: 20px;
+    }
+    .input-area {
+        padding: 0 28px;
+    }
+    .theme-toggle-area {
+        font-size: 14px;
+    }
+    .detail-name {
+        font-size: 28px;
+    }
+    .list-section {
+        flex-direction: column;
+        gap: 30px;
+        align-items: flex-start;
+    }
+    .flag-detail-text-section {
+        text-align: left;
+    }
+    .border-countries-section {
+        justify-content: flex-start;
+    }
+    .filter-options {
+        left: 28px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .flag-img {
+        height: auto;
+    }
+    .input-section {
+        margin: 28px 0;
+    }
+    .filter-section {
+        margin-bottom: 40px;
+    }
+    .filter-options {
+        top: 174px;
+    }
+    nav h1 {
+        font-size: 18px;
+    }
 }
